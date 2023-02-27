@@ -68,6 +68,18 @@ defmodule GbnWeb.Router do
       on_mount: [{GbnWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+
+      # user profile
+
+
+      live "/contacts", ContactLive.Index, :index
+      live "/contacts/new", ContactLive.Index, :new
+      live "/contacts/:id/edit", ContactLive.Index, :edit
+
+      live "/contacts/:id", ContactLive.Show, :show
+      live "/contacts/:id/show/edit", ContactLive.Show, :edit
+
+
     end
   end
 
@@ -79,6 +91,7 @@ defmodule GbnWeb.Router do
     live_session :current_user,
       on_mount: [{GbnWeb.UserAuth, :mount_current_user}] do
       live "/users/confirm/:token", UserConfirmationLive, :edit
+      # what is this used for?
       live "/users/confirm", UserConfirmationInstructionsLive, :new
     end
   end

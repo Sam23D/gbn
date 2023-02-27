@@ -1,0 +1,37 @@
+<.header>
+  Contact <%= @contact.id %>
+  <:subtitle>This is a contact record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/contacts/#{@contact}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit contact</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @contact.name %></:item>
+  <:item title="Lastname"><%= @contact.lastname %></:item>
+  <:item title="Celphone"><%= @contact.celphone %></:item>
+  <:item title="Phone"><%= @contact.phone %></:item>
+  <:item title="Email"><%= @contact.email %></:item>
+  <:item title="Jobtitle"><%= @contact.jobtitle %></:item>
+  <:item title="Jobarea"><%= @contact.jobarea %></:item>
+  <:item title="Company name"><%= @contact.company_name %></:item>
+  <:item title="Address"><%= @contact.address %></:item>
+  <:item title="Address secondary"><%= @contact.address_secondary %></:item>
+  <:item title="City"><%= @contact.city %></:item>
+  <:item title="State"><%= @contact.state %></:item>
+</.list>
+
+<.back navigate={~p"/contacts"}>Back to contacts</.back>
+
+<.modal :if={@live_action == :edit} id="contact-modal" show on_cancel={JS.patch(~p"/contacts/#{@contact}")}>
+  <.live_component
+    module={GbnWeb.ContactLive.FormComponent}
+    id={@contact.id}
+    title={@page_title}
+    action={@live_action}
+    contact={@contact}
+    patch={~p"/contacts/#{@contact}"}
+  />
+</.modal>
